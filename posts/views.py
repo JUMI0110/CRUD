@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Post
 
 # Create your views here.
@@ -18,5 +18,21 @@ def detail(request, id):
     context = {
         'post': post
     }
-    
+
     return render(request, 'detail.html', context)
+
+
+def new(request):
+    return render(request, 'new.html')
+
+def create(request):
+    title = request.GET.get('title')
+    content = request.GET.get('content')
+
+    post = Post()
+    post.title = title
+    post.content = content
+    post.save()
+
+    # 만들어놓은 기능 재사용 redirect 
+    return redirect(f'/posts/{post.id}/')
