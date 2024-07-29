@@ -36,3 +36,10 @@ def create(request):
 
     # 만들어놓은 기능 재사용 redirect 
     return redirect(f'/posts/{post.id}/')
+
+def delete(request, id):
+    post = Post.objects.get(id=id)
+    post.delete()
+
+    return redirect('/')
+
